@@ -1,0 +1,1 @@
+"%~dp0programs\App\python.exe" "%~dp0config\render.py"
