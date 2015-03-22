@@ -15,7 +15,8 @@ class Renderer:
 	def run(self):
 		return os.path.isfile(self.runfile)	
 		
-	def render(self, blendfile):
+	def render(self):
+		blendfile = path + '\\..\\' + open(path+'\\.project', 'r').read()
 		self.runfile = '\\'.join(blendfile.split('\\')[:-1])+'\\.run'
 		while(True):
 			try:
@@ -23,6 +24,8 @@ class Renderer:
 				if enabled and not self.renderprocess:
 					blenderpath = 'C:\\Program Files\\Blender Foundation\\Blender\\blender.exe'
 					blenderpath = program_path + '\\BlenderPortable\\BlenderPortable.exe'
+					blendfile = path + '\\..\\' + open(path+'\\.project', 'r').read()
+					self.runfile = '\\'.join(blendfile.split('\\')[:-1])+'\\.run'
 					self.renderprocess = subprocess.Popen([blenderpath, '-b', blendfile, '-P', path + '\\render_settings.py'], shell=True, stdout=subprocess.PIPE)
 				elif not enabled and self.renderprocess is not None:
 					try:
@@ -51,4 +54,4 @@ class Renderer:
 				break
 
 r = Renderer()
-r.render('d:\\Users\\Austin\\Dropbox\\Cloud Render\\projects\\test\\test.blend')
+r.render()

@@ -67,10 +67,7 @@ class CommandProcessor(cmd.Cmd):
 				for match in matches: print(match)
 			else:
 				matches = matches[0].split('\\')
-				runfile = '\\'.join(matches[:-1])+'\\.run'
-				f = open(runfile, 'a')
-				f.close()
-				print("Render flag created!")
+				
 				dirname = input("Output Directory: ")
 				filename = matches[-1][:-6]
 				outputdir = '\\'.join(matches[:-2]) + '\\' + filename + "_output"
@@ -78,6 +75,20 @@ class CommandProcessor(cmd.Cmd):
 				t = threading.Thread(target =copier.start, args = (outputdir, dirname))
 				t.daemon = True
 				t.start()
+
+				i = 0
+				while (matches[i] != 'projects'):
+					i = i + 1
+				proj_path = '\\'.join(matches[i:])
+				projfile = open(path+'\\.project', 'w')
+				projfile.write(proj_path)
+				projfile.close()
+				print("Project flag created!")
+
+				runfile = '\\'.join(matches[:-1])+'\\.run'
+				f = open(runfile, 'a')
+				f.close()
+				print("Render flag created!")
 
 	def help_render(self):
 		print('\n'.join(['Flags a project for rendering',
