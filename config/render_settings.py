@@ -1,7 +1,9 @@
 import bpy, os
 
-bpy.context.user_preferences.system.compute_device_type = 'CUDA'
-bpy.context.user_preferences.system.compute_device = 'CUDA_0'
+try:
+	bpy.context.user_preferences.system.compute_device_type = 'CUDA'
+	bpy.context.user_preferences.system.compute_device = 'CUDA_0'
+except: pass
 
 filename = bpy.path.basename(bpy.context.blend_data.filepath)
 filename = os.path.splitext(filename)[0]
